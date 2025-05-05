@@ -1,0 +1,15 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@typeparam TValue
+
+<select class="@CssClasses"
+@onchange="OnValueChanged">
+    <option value="">-Select-</option>
+    @foreach(var item in Options)
+    {
+        <option value="@item.Value">@item.Label</option>
+    }
+</select>
+@if(ValidationFor is not null)
+{
+    <ValidationMessage For="@ValidationFor" />
+}

@@ -1,0 +1,18 @@
+﻿@typeparam TValue
+
+<div class="@CssClasses">
+    <input type="radio"
+        id="@Id"
+        name="@FieldName"
+           value="@Id"
+           checked="@Checked"
+         @onchange="OnCheckedChanged"
+        disabled="@Disabled"/>
+
+    @if (!string.IsNullOrWhiteSpace(Label))
+    {
+        <label for="@Id">
+            @Label
+        </label>
+    }
+</div>

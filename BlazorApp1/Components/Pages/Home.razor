@@ -1,0 +1,259 @@
+﻿@page "/"
+@using System.ComponentModel.DataAnnotations
+@rendermode InteractiveServer
+
+<EditForm FormName="control-form"
+Model="@Model"
+OnValidSubmit="OnSubmit"
+Enhance>
+    <DataAnnotationsValidator />
+    <div class="col-12">
+        <div class="card mt-3 mb-3">
+            <div class="card-header">
+                Form Controls
+            </div>
+            <div class="row card-body">
+                <div class="col-4">
+                    <div class="mb-3">
+                        <label class="form-label">Name: <code>@Model.Name</code></label>
+                        <TextBox TValue="string"
+                        FieldName="Nick"
+                        Placeholder="full name"/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Name: <code>@Model.Name</code></label>
+                        <TextBox TValue="string"
+                        FieldName="@nameof(Model.Name)"
+                        Placeholder="full name"
+                        @bind-Value="Model.Name"
+                        ValidationFor="(()=> Model.Name)" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email: <code>@Model.Email</code></label>
+                        <TextBox TValue="string"
+                        FieldName="@nameof(Model.Email)"
+                        ReadyOnly="true"
+                        Placeholder="email address"
+                        @bind-Value="Model.Email"
+                        ValidationFor="(()=> Model.Email)" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Phone: <code>@Model.Phone</code></label>
+                        <TextBox TValue="string"
+                        FieldName="@nameof(Model.Phone)"
+                        Placeholder="phone number"
+                        @bind-Value="Model.Phone"
+                        ValidationFor="(()=> Model.Phone)" />
+                    </div>
+                    <div>
+                        <label class="form-label">Code: <code>@Model.Code</code></label>
+                        <TextBox TValue="int?"
+                        Type="InputType.Number"
+                        FieldName="@nameof(Model.Code)"
+                        ValidationFor="(()=> Model.Code)"
+                        @bind-Value="Model.Code" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="mb-3">
+                        <label class="form-label">Date: <code>@Model.Dob?.ToString("dddd MMM dd, yyyy")</code></label>
+                        <DatePicker Disabled="false"
+                        @bind-Value="Model.Dob" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Date: <code>@Model.DobDisabled?.ToString("dddd MMM dd, yyyy")</code></label>
+                        <DatePicker Disabled="true"
+                        @bind-Value="Model.DobDisabled" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Select Country: <code>@Model.Country</code></label>
+                        <CustomSelect Placeholder="Countries"
+                        Value="@Model.Country"
+                        OnChanged="((v)=> {Model.Country = v;})"
+                        Options="@Countries"
+                        Disabled="false"
+                        IsSearchable="false" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Select Country: <code>@Model.CountryDisabled</code></label>
+                        <CustomSelect Placeholder="Countries"
+                        Value="@Model.CountryDisabled"
+                        Options="@Countries"
+                        Disabled="true"
+                        IsSearchable="false" />
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row card-body">
+                <div class="col-2">
+                    <Checkbox FieldName="@nameof(Model.ChkStatus)"
+                    Label="Checkbox"
+                    Value="ChkStatus"
+                    @bind-Checked="Model.ChkStatus" />
+                </div>
+                <div class="col-2">
+                    <Checkbox FieldName="@nameof(Model.ChkStatus)"
+                    Disabled="true"
+                    Label="Disabled"
+                    Value="ChkStatus"
+                    @bind-Checked="Model.ChkStatus" />
+                </div>
+            </div>
+            <div class="row card-body">
+                <div class="col-2">
+                    <Radiobox Id="@("inactive")"
+                    FieldName="@nameof(Model.RdoStatus)"
+                    Label="@("inactive")"
+                    @bind-Value="Model.RdoStatus" />
+                </div>
+                <div class="col-2">
+                    <Radiobox Id="@("active")"
+                    FieldName="@nameof(Model.RdoStatus)"
+                    Label="@("active")"
+                    @bind-Value="Model.RdoStatus" />
+                </div>
+                <div class="col-2">
+                    <Radiobox Id="@("disabled")"
+                    Disabled="true"
+                    FieldName="@nameof(Model.RdoStatus)"
+                    Label="@("Disabled")"
+                    @bind-Value="Model.RdoStatus" />
+                </div>
+            </div>
+            <div class="row card-body">
+                <div class="col-2">
+                    <Checkbox FieldName="@nameof(Model.Status)"
+                    IsSwitch="true"
+                    Label="Switch"
+                    Value="Status"
+                    @bind-Checked="Model.Status" />
+                </div>
+                <div class="col-2">
+                    <Checkbox FieldName="@nameof(Model.DisabledSwitchBox)"
+                    Disabled="true"
+                    IsSwitch="true"
+                    Label="Disabled"
+                    Value="DisabledSwitcBox"
+                    @bind-Checked="Model.DisabledSwitchBox" />
+                </div>
+            </div>
+            <hr />
+            <div class="row card-body">
+                <div class="col-12 mb-3">
+                    <Button Type="ButtonType.Submit"
+                    Style="ButtonStyle.Default"
+                    Text="Default" />
+                    <Button Type="ButtonType.Submit"
+                    Style="ButtonStyle.Success"
+                    Text="Success" />
+                    <Button Type="ButtonType.Submit"
+                    Style="ButtonStyle.Info"
+                    Text="Info" />
+                    <Button Type="ButtonType.Submit"
+                    Style="ButtonStyle.Warning"
+                    Text="Warning" />
+                    <Button Type="ButtonType.Submit"
+                    Style="ButtonStyle.Danger"
+                    Text="Danger" />
+                </div>
+                <div class="col-12 mb-3">
+                    <Button Type="ButtonType.Submit"
+                    Style="ButtonStyle.Default"
+                    Shape="ButtonShape.Square"
+                    Text="Default" />
+                    <Button Type="ButtonType.Submit"
+                    Shape="ButtonShape.Square"
+                    Style="ButtonStyle.Success"
+                    Text="Success" />
+                    <Button Type="ButtonType.Submit"
+                    Shape="ButtonShape.Square"
+                    Style="ButtonStyle.Info"
+                    Text="Info" />
+                    <Button Type="ButtonType.Submit"
+                    Shape="ButtonShape.Square"
+                    Style="ButtonStyle.Warning"
+                    Text="Warning" />
+                    <Button Type="ButtonType.Submit"
+                    Shape="ButtonShape.Square"
+                    Style="ButtonStyle.Danger"
+                    Text="Danger" />
+                </div>
+                <div class="col-12 mb-3">
+                    <Button Type="ButtonType.Submit"
+                    Style="ButtonStyle.Default"
+                    Shape="ButtonShape.Pill"
+                    Text="Default" />
+                    <Button Type="ButtonType.Submit"
+                    Shape="ButtonShape.Pill"
+                    Style="ButtonStyle.Success"
+                    Text="Success" />
+                    <Button Type="ButtonType.Submit"
+                    Shape="ButtonShape.Pill"
+                    Style="ButtonStyle.Info"
+                    Text="Info" />
+                    <Button Type="ButtonType.Submit"
+                    Shape="ButtonShape.Pill"
+                    Style="ButtonStyle.Warning"
+                    Text="Warning" />
+                    <Button Type="ButtonType.Submit"
+                    Shape="ButtonShape.Pill"
+                    Style="ButtonStyle.Danger"
+                    Text="Danger" />
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+<div class="bd-content ps-lg-4">
+</div>
+
+@code {
+    public class FormModel
+    {
+        [Required]
+        public string? Name { get; set; }
+        public string? Email { get; set; } = "blazor@mailinator.com";
+        public string? Phone { get; set; }
+        public int? Code { get; set; }
+
+        public bool Status { get; set; }
+
+        public bool ChkStatus { get; set; }
+        public bool SwtStatus { get; set; }
+        public string RdoStatus { get; set; } = "";
+
+
+        public bool DisabledCheckBox1 { get; set; }
+        public bool DisabledCheckBox2 { get; set; } = true;
+        public bool SwitchBox { get; set; }
+        public bool DisabledSwitchBox { get; set; } = true;
+
+        public DateTime? Dob { get; set; } = DateTime.Now;
+        public DateTime? DobDisabled { get; set; } = DateTime.Now.AddYears(-20);
+
+        public string? Country { get; set; }
+        public string? CountryDisabled { get; set; } = "ctr-1";
+    }
+
+    [SupplyParameterFromForm(FormName = "control-form")]
+    public FormModel Model { get; set; } = new();
+
+    public List<SelectOption> Countries = Enumerable.Range(1, 20)
+    .Select(s => new SelectOption($"ctr-{s}", $"Country {s}"))
+    .ToList();
+    public string? MarkDownHtml { get; set; }
+    protected override void OnInitialized()
+    {
+        //set parameter num_thread 7
+        //OLLAMA_NUM_THREADS=7 ollama run llama3.2:1b
+        MarkDownHtml = Markdig.Markdown.ToHtml("This is a text with some *emphasis*");
+        base.OnInitialized();
+    }
+
+    public async Task OnSubmit(EditContext args)
+    {
+        await Task.Delay(100);
+    }
+}

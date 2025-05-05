@@ -1,0 +1,26 @@
+﻿<div class="date-wrapper @(Disabled ? "disabled" : "")">
+    <input type="text" 
+        value="@Value?.ToString("dd/MM/yyyy")"
+           @onclick="ToggleSelect"
+           disabled="@Disabled"
+        readonly/>
+    <div class="@CssClasses"
+         @onfocusout="CloseOnFocusOut">
+        <header>
+            <i class="prev" 
+                @onclick="OnPrevMonth"/>
+            <span>@(dtNow.ToString("MMMM yyyy"))</span>
+            <i class="next" 
+                @onclick="OnNextMonth"/>
+        </header>
+        <main class="days">
+            @{
+                foreach (var dt in dateList)
+                {
+                    <span class="@(dt == Value ? "active" : "")"
+                    @onclick="@(e=> OnSelectedDate(e, dt))">@dt.Day</span>
+                }
+            }
+        </main>
+    </div>
+</div>

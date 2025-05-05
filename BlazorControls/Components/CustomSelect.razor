@@ -1,0 +1,27 @@
+﻿<div class="@CssClasses"
+     @onclick="ToggleSelect">
+    @if (IsSearchable)
+    {
+        <input type="text"
+               placeholder="@Placeholder"
+               value="@DisplayText"
+               @oninput="OnSearching" />
+    }
+    else
+    {
+        <span>@DisplayText</span>
+    }
+    @if(ValidationFor is not null)
+{
+    <ValidationMessage For="@ValidationFor" />
+}
+    <ul class="dropdown">
+        @{
+            foreach (var item in Options.Where(r => txtSearch is null || r.Label.Contains(txtSearch, StringComparison.OrdinalIgnoreCase)))
+            {
+                <li value="@item.Value"
+                    @onclick="(()=> OnSelectedOption(item))">@item.Label</li>
+            }
+        }
+    </ul>
+</div>

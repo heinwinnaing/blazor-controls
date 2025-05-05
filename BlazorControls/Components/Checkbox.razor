@@ -1,0 +1,16 @@
+﻿<div class="@CssClasses">
+    <input type="checkbox"
+        id="@Id" 
+        name="@FieldName"
+           value="@Value"
+           checked="@Checked"
+           @onchange="OnCheckedChanged"
+           disabled="@Disabled" />
+
+    @if (!string.IsNullOrWhiteSpace(Label))
+    {
+        <label for="@Id">
+            @Label
+        </label>
+    }
+</div>

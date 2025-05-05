@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@typeparam TValue
+
+<input class="@CssClasses"
+        type="@Type"
+       @bind="@CurrentValue" 
+       @bind:event="oninput" 
+       placeholder="@Placeholder"
+       readonly="@ReadyOnly"/>
+      
+@if(ValidationFor is not null)
+{
+    <ValidationMessage For="@ValidationFor" />
+}
